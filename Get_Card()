@@ -1,10 +1,5 @@
 from random import random, randint
 
-def scoreboard():
-    print("{:^}".format('-'*30))
-    print("scores here")
-    print("{:^}".format('-'*30))
-    
 def deal():
     print('*'*30)
     #dealer recieves 1 card up, 1 down
@@ -20,6 +15,7 @@ def deal():
     print('Your Hand:')
     print("{}   {}\n\n".format(p_card1,p_card2))
     
+# provides a random card, non duplicate
 def getcard():
     face = randint(1, 4)
     facechar = ''

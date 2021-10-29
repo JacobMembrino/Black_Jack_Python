@@ -53,5 +53,7 @@ def getcard():
     return(card)
 
 usedcards = []
-
-deal()
+while(1):
+    usedcards.clear()
+    deal()
+    break

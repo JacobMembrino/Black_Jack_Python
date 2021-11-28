@@ -1,0 +1,9 @@
+from colorama import Fore
+from colorama import Style
+
+def displaycard(card, color):
+    # display cards (with color)  
+    if color == 'RED':
+        print(f"{Fore.RED}{card}{Style.RESET_ALL}", end='\t')
+    else:
+        print(f"{card}", end='\t')

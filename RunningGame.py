@@ -137,7 +137,7 @@ def dealer_play(card1, card2):
 
 def scoreboard(u_score, d_score):
     print("{:^}".format('-'*30))
-    print("scores here")
+    print(f"User Score: {}, Dealer Score: {}".format(u_score, d_score))
     print("{:^}".format('-'*30))
     
 

@@ -1,10 +1,13 @@
 from random import random, randint
 import time
-from colorama import Fore, Style
+from colorama import Fore
+from colorama import Style
 
 def deal():
+    
     # dealer recieves 1 card up, 1 down
-    # player recieves 2 cards    
+    # player recieves 2 cards
+    
     d_card1 = getcard()
     d_card2 = getcard()
     p_card1 = getcard()
@@ -14,11 +17,10 @@ def deal():
 def getcard():
     #randint used to generate a face and value of a card in a 52-card deck
     face = randint(1, 4)
+    facechar = ''
     val = randint(2, 14)
     valf = str(val)
-    facechar = ''
     color = ''
-    
     if(face==1):
         facechar = '\u2660'
         color = 'BLACK'
@@ -61,17 +63,18 @@ def displaycard(card, color):
 
 def user_play(card1_val, card2_val):
     Busted = False
-    Nat21  = False
     total_val = card1_val + card2_val
-
+    Nat21 = False
+    
     # check for nat 21
     if(total_val == 21):
-        print("\nYou Got a Natural 21!!")
+        time.sleep(1)
+        print("\n\nYou Got a Natural 21!!")
         Nat21 = True
         time.sleep(1)
         return(total_val, Busted, Nat21)
     
-    print("\n\nType: Hit (h), Stand (s)")
+    print("\n\nHit (h), Stand (s)")
     while(1):
         inp = input(f"What will you do?: (score:{total_val})")
         if(inp == 'h'):
@@ -83,7 +86,7 @@ def user_play(card1_val, card2_val):
             time.sleep(1)
             total_val += disp[2]
             if(total_val > 21):
-                print(f"\nBUST! :({total_val}) :( \n")
+                print(f"\nBUST! ({total_val})\n")
                 Busted = True
                 break
             elif(total_val == 21):
@@ -93,7 +96,7 @@ def user_play(card1_val, card2_val):
             else:
                 total_val += 0
         elif(inp=='s'):
-            print(f"\nFinal Score: {total_val} Dealer's Turn...")
+            print(f"\nFinal Score: {total_val}")
             break
         else:
             print("Enter a valid action\n")
@@ -140,12 +143,12 @@ def scoreboard(u_score, d_score):
     scoreboardString = "User Score: {score1}, Dealer Score: {score2}"
     print(scoreboardString.format(score1 = u_score, score2 = d_score))
     print("{:^}".format('-'*30))
-    
 
 # Gameplay Loop starts here
 usedcards = []
 while(1):
     usedcards.clear()
+    dealer_score = 0
     cards = deal()
     
     print("Dealer's Hand:")
@@ -166,14 +169,16 @@ while(1):
         dealer_score = dealer_play(cards[2], cards[3])
         print(f"Dealer's Final Score: {dealer_score}\n")
         
-    scoreboard(user_score, dealer_score)
+    scoreboard(user_score[0], dealer_score)
     
-    inp = chr(input("Continue? y/n : "))
+    inp = str(input("Continue? y/n : "))
+    while((inp != 'n') & (inp != 'N')):
+        if(inp == 'y'):
+            print("\nStarting New Game...\n")
+            time.sleep(1)
+            break
+        else:
+            print("Please enter y/n")
     if(inp == 'n'):
-        print("Thanks For Playing!/n")
-        break
-    elif(inp == 'y'):
-        print("\nStarting New Game")
-        time.sleep(1)
-    else:
-        print("Please enter y/n")
+            print("Thanks For Playing!\n")
+            break

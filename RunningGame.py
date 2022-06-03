@@ -15,7 +15,7 @@ def deal():
 def getcard():
     #randint used to generate a face and value of a card in a 52-card deck
     suit = randint(1, 4)
-    facechar = ''
+    suitchar = ''
     val = randint(2, 14)
     valf = str(val)
     color = ''
@@ -43,7 +43,7 @@ def getcard():
     elif(val==14):
         valf = 'A'
         val = 11
-    card = f"[{valf} {facechar}]"
+    card = f"[{valf} {suitchar}]"
     
     # remove duplicate cards using recursion
     if(card not in usedcards):
@@ -151,10 +151,8 @@ def scoreboard(u_score, d_score, wins, loses, busts, nat21s):
 
 # Gameplay Loop starts here
 usedcards = []
-wins = 0
-loses = 0
-busts = 0
-nat21s = 0
+scoreSheet = [0,0,0,0]
+#numAces = [0,0]
 
 while(1):
     usedcards.clear()
@@ -175,24 +173,25 @@ while(1):
     if user_score[1]:
         print("You Lose! Bust!\n")
         dealer_score = 1
-        busts+=1
+        scoreSheet[3] += 1
     elif user_score[2]:
         dealer_score = 0
-        nat21s+=1
+        scoreSheet[2]+=1
     else:
         dealer_score = dealer_play(cards[2], cards[3])
         print(f"Dealer's Final Score: {dealer_score}\n")
 
     if(dealer_score < user_score[0]):
         print("You Win!\n")
-        wins+=1
+        scoreSheet[0]+=1
     elif(dealer_score > user_score[0]):
         print("Dealer Wins!\n")
-        loses+=1
+        scoreSheet[1]+=1
     else:
         print("Tie!!\n")
         
-    scoreboard(user_score[0], dealer_score, wins, loses, busts, nat21s)
+    scoreboard(user_score[0], dealer_score, scoreSheet[0], 
+        scoreSheet[1], scoreSheet[3], scoreSheet[2])
     
     inp1 = ''
     print("\nContinue? (y/n): ")

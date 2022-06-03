@@ -1,12 +1,11 @@
 from random import random, randint
 import time
 from colorama import Fore, Style
+import readchar
 
 def deal():
-    
     # dealer recieves 1 card up, 1 down
     # player recieves 2 cards
-    
     d_card1 = getcard()
     d_card2 = getcard()
     p_card1 = getcard()
@@ -15,22 +14,22 @@ def deal():
 
 def getcard():
     #randint used to generate a face and value of a card in a 52-card deck
-    face = randint(1, 4)
+    suit = randint(1, 4)
     facechar = ''
     val = randint(2, 14)
     valf = str(val)
     color = ''
-    if(face==1):
-        facechar = '\u2660'
+    if(suit==1):
+        suitchar = '\u2660'
         color = 'BLACK'
-    elif(face==2):
-        facechar = '\u2665'
+    elif(suit==2):
+        suitchar = '\u2665'
         color = 'RED'
-    elif(face==3):
-        facechar = '\u2666'
+    elif(suit==3):
+        suitchar = '\u2666'
         color = 'RED'
     else:
-        facechar = '\u2663'
+        suitchar = '\u2663'
         color = 'BLACK'
     if(val==11):
         valf = 'J'
@@ -61,9 +60,9 @@ def displaycard(card, color):
         print(f"{card}", end='\t')
 
 def user_play(card1_val, card2_val):
-    Busted = False
     total_val = card1_val + card2_val
     Nat21 = False
+    Busted = False
     
     # check for nat 21
     if(total_val == 21):
@@ -73,10 +72,10 @@ def user_play(card1_val, card2_val):
         time.sleep(1)
         return(total_val, Busted, Nat21)
     
-    print("\n\nHit (h), Stand (s)")
     while(1):
-        inp = input(f"What will you do?: (score:{total_val}) ")
-        if(inp == 'h'):
+        print(f"\nYou may either: Hit (h) or Stand (s) (score:{total_val}): ")
+        inp = repr(readchar.readchar())
+        if(inp == "b'h'"):
             print()
             time.sleep(0.5)
             disp = getcard()
@@ -95,7 +94,7 @@ def user_play(card1_val, card2_val):
                 break
             else:
                 total_val += 0
-        elif(inp=='s'):
+        elif(inp == "b's'"):
             print(f"\nFinal Score: {total_val}")
             break
         else:
@@ -103,7 +102,6 @@ def user_play(card1_val, card2_val):
     return(total_val, Busted, Nat21)
     
 def dealer_play(card1, card2):
-    
     score = card1[2] + card2[2]
     print()
     print("*"*30)
@@ -141,7 +139,6 @@ def dealer_play(card1, card2):
     return(score)
 
 def scoreboard(u_score, d_score, wins, loses, busts, nat21s):
-
     curScores = "User Score: {}, Dealer Score: {}".format(u_score, d_score)
     ScoreBoard = "Wins  :{:^8} | Loses:{:^8}\nNat21s:{:^8} | Busts:{:^8}".format(wins, loses, nat21s, busts)
 
@@ -197,14 +194,16 @@ while(1):
         
     scoreboard(user_score[0], dealer_score, wins, loses, busts, nat21s)
     
-    inp = str(input("Continue? y/n : "))
-    while((inp != 'n') & (inp != 'N')):
-        if(inp == 'y'):
+    inp1 = ''
+    print("\nContinue? (y/n): ")
+    inp1 = repr(readchar.readchar())
+    while(inp1 != "b'n'"):
+        if(inp1 == "b'y'"):
             print("\nStarting New Game...\n")
             time.sleep(1)
             break
         else:
             print("Please enter y/n")
-    if(inp == 'n'):
+    if(inp1 == "b'n'"):
             print("Thanks For Playing!\n")
             break

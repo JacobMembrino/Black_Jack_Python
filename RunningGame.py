@@ -78,6 +78,7 @@ def user_play(card1_val, card2_val, numAces):
     while(1):
         print(f"\nYou may either: Hit (h) or Stand (s) (score:{total_val}): ")
         inp = repr(readchar.readchar())
+        print(f"You Entered: {inp}")
         if(inp == "b'h'"):
             print()
             time.sleep(0.5)
@@ -200,8 +201,6 @@ while(1):
         numAces[0] += 1
     elif(cards[0][3] == True and cards[1][3] == True):
         numAces[0] += 2
-    else:
-        pass
     
     #returns a list containg [score, busted boolean, Nat 21 boolean]
     user_score = user_play(cards[0][2], cards[1][2], numAces[0])
@@ -234,6 +233,7 @@ while(1):
     inp1 = ''
     print("\nContinue? (y/n): ")
     inp1 = repr(readchar.readchar())
+    print(f"You Entered: {inp1}")
     while(inp1 != "b'n'"):
         if(inp1 == "b'y'"):
             print("\nStarting New Game...\n")
@@ -242,6 +242,7 @@ while(1):
         else:
             print("Please enter y/n")
             inp1 = repr(readchar.readchar())
+            print(f"You Entered: {inp1}")
     if(inp1 == "b'n'"):
             print("Thanks For Playing!\n")
             break
